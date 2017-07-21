@@ -87,7 +87,7 @@ vbox.add(entries)
 def ctrl_enter(widget, event):
     if gtk.gdk.keyval_name(event.keyval) == "Return":
         if event.state & gtk.gdk.CONTROL_MASK:
-            print "Add something"
+            entries.add_entry(widget.get_text())
         else:
             print "Normal Return"
 
