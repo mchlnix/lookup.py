@@ -77,12 +77,12 @@ vbox = gtk.VBox()
 
 wind.add(vbox)
 
-entry = gtk.Entry()
+query_box = gtk.Entry()
 
-found_entries = ResultBox()
+entries = ResultBox()
 
-vbox.add(entry)
-vbox.add(found_entries)
+vbox.add(query_box)
+vbox.add(entries)
 
 def ctrl_enter(widget, event):
     if gtk.gdk.keyval_name(event.keyval) == "Return":
@@ -91,7 +91,7 @@ def ctrl_enter(widget, event):
         else:
             print "Normal Return"
 
-entry.connect("key-press-event", ctrl_enter)
+query_box.connect("key-press-event", ctrl_enter)
 
 def callback():
     if wind.get_visible():
@@ -100,7 +100,7 @@ def callback():
         wind.show_all()
 
 def on_change(widget):
-    found_entries.update(widget.get_text())
+    entries.update(widget.get_text())
 
     wind.resize(2,2)
 
@@ -108,7 +108,7 @@ def on_change(widget):
 
 
 
-entry.connect("changed", on_change)
+query_box.connect("changed", on_change)
     
 keybinder.bind(keystr, callback)
 
@@ -117,6 +117,6 @@ wind.show_all()
 try:
     gtk.main()
 except KeyboardInterrupt:
-    found_entries.save_content()
+    entries.save_content()
 
 
