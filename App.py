@@ -1,12 +1,27 @@
 import gtk
 import keybinder
+import errno
+import os
 from ResultBox import ResultBox
 
 keystr = "<Ctrl>I"
-file_path = "/tmp/python_blub"
+
+data_folder = os.path.expanduser("~/.config/lookup.py/")
+file_path = data_folder + "/data.txt"
 
 class App:
     def __init__(self):
+        # create folder to save data in
+        # https://stackoverflow.com/a/600612/4252230
+        try:
+            os.makedirs(data_folder)
+        except OSError as exc:  # Python >2.5
+            if exc.errno == errno.EEXIST and os.path.isdir(data_folder):
+                pass
+            else:
+                print("There was a problem while creating the data directory " + data_folder)
+                raise
+
         self.setup()
 
     def setup(self):
