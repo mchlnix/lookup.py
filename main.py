@@ -84,11 +84,14 @@ found_entries = ResultBox()
 vbox.add(entry)
 vbox.add(found_entries)
 
-entries = []
+def ctrl_enter(widget, event):
+    if gtk.gdk.keyval_name(event.keyval) == "Return":
+        if event.state & gtk.gdk.CONTROL_MASK:
+            print "Add something"
+        else:
+            print "Normal Return"
 
-for i in range(10):
-    entries.append(str(random.random()))
-    found_entries.add(gtk.Label(entries[i]))
+entry.connect("key-press-event", ctrl_enter)
 
 def callback():
     if wind.get_visible():
@@ -100,17 +103,6 @@ def on_change(widget):
     found_entries.update(widget.get_text())
 
     wind.resize(2,2)
-
-    for entry in entries:
-        index = entry.find(widget.get_text())
-        if index >= 0:
-            end = index+len(widget.get_text())
-            label = gtk.Label()
-            label.set_use_markup(True)
-            label.set_markup(entry[0:index] + "<b>" + entry[index:end] + "</b>" + entry[end:-1])
-            found_entries.add(label)
-            continue
-
 
     wind.show_all()
 
