@@ -25,14 +25,17 @@ class ResultBox(gtk.VBox):
         with open(self.file_path, "w") as f:
             f.write("\n".join(self.content))
 
-    def update(self, string):
+    def refresh(self):
+        self.update(self.last_query, use_cache=False)
+
+    def update(self, string, use_cache=True):
         self.destroy_children()
 
         if not string:
             self.last_query = ""
             return
 
-        if self.last_query and string.find(self.last_query) == 0:
+        if use_cache and self.last_query and string.find(self.last_query) == 0:
             print("Using " + str(len(self.last_slice)) + " entries")
             content = self.last_slice
         else:
