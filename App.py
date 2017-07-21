@@ -36,7 +36,8 @@ class App:
 
     def exit(self):
         self.entries.save_content()
-        gtk.main_quit()
+        if gtk.main_level() > 0:
+            gtk.main_quit()
 
     def toggle_visibility(self):
         if self.wind.get_visible():
