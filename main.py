@@ -6,6 +6,6 @@ from App import App
 app = App()
     
 try:
-    gtk.main()
+    app.start()
 except KeyboardInterrupt:
     app.exit()

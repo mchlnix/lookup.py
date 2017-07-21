@@ -31,8 +31,12 @@ class App:
 
         self.wind.show_all()
 
+    def start(self):
+        gtk.main()
+
     def exit(self):
         self.entries.save_content()
+        gtk.main_quit()
 
     def toggle_visibility(self):
         if self.wind.get_visible():
@@ -49,7 +53,7 @@ class App:
     def escape_listener(self, widget, event):
         if gtk.gdk.keyval_name(event.keyval) == "Escape":
             if event.state & gtk.gdk.CONTROL_MASK:
-                print "Close Application"
+                self.exit()
             else:
                 self.toggle_visibility()
 
