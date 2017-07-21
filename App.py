@@ -36,6 +36,7 @@ class App:
 
     def toggle_visibility(self):
         if self.wind.get_visible():
+            self.query_box.set_text("")
             self.wind.hide()
         else:
             self.wind.show_all()
