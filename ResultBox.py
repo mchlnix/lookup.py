@@ -45,10 +45,10 @@ class ResultBox(gtk.VBox):
 
         self.last_query = string
 
-        lst = [ item for item in content if item.find(string) >= 0 ]
+        lst = [ item for item in content if item.lower().find(string.lower()) >= 0 ]
 
         for item in lst:
-            index = item.find(string)
+            index = item.lower().find(string.lower())
             end = index+len(string)
 
             label = gtk.Label()
