@@ -50,6 +50,8 @@ class App:
         if gtk.gdk.keyval_name(event.keyval) == "Return":
             if event.state & gtk.gdk.CONTROL_MASK:
                 self.entries.add_entry(widget.get_text())
+                self.entries.refresh()
+                self.redraw()
 
     def escape_listener(self, widget, event):
         if gtk.gdk.keyval_name(event.keyval) == "Escape":
@@ -64,6 +66,9 @@ class App:
     def query_input_listener(self, widget):
         self.entries.update(widget.get_text())
 
+        self.redraw()
+
+    def redraw(self):
         self.wind.resize(1,1)
 
         self.wind.show_all()
