@@ -34,6 +34,12 @@ class App:
     def exit(self):
         self.entries.save_content()
 
+    def toggle_visibility(self):
+        if self.wind.get_visible():
+            self.wind.hide()
+        else:
+            self.wind.show_all()
+
     def ctrl_enter_listener(self, widget, event):
         if gtk.gdk.keyval_name(event.keyval) == "Return":
             if event.state & gtk.gdk.CONTROL_MASK:
@@ -44,15 +50,10 @@ class App:
             if event.state & gtk.gdk.CONTROL_MASK:
                 print "Close Application"
             else:
-                print "Hide Application"
-        else:
-            print gtk.gdk.keyval_name(event.keyval)
+                self.toggle_visibility()
 
     def keybinder_callback(self):
-        if self.wind.get_visible():
-            self.wind.hide()
-        else:
-            self.wind.show_all()
+        self.toggle_visibility()
 
     def query_input_listener(self, widget):
         self.entries.update(widget.get_text())
