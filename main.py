@@ -34,9 +34,18 @@ class ResultBox(gtk.VBox):
         self.destroy_children()
 
         if not string:
+            self.last_query = ""
             return
 
-        lst = [ item for item in self.content if item.find(string) >= 0 ]
+        if self.last_query and string.find(self.last_query) == 0:
+            print("Using " + str(len(self.last_slice)) + " entries")
+            content = self.last_slice
+        else:
+            content = self.content
+
+        self.last_query = string
+
+        lst = [ item for item in content if item.find(string) >= 0 ]
 
         for item in lst:
             index = item.find(string)
@@ -53,6 +62,8 @@ class ResultBox(gtk.VBox):
             lalign.add(label)
 
             self.add(lalign)
+
+        self.last_slice = lst
 
     def destroy_children(self):
         for child in self.get_children():
