@@ -122,4 +122,9 @@ keybinder.bind(keystr, callback)
 
 wind.show_all()
 
-gtk.main()
+try:
+    gtk.main()
+except KeyboardInterrupt:
+    found_entries.save_content()
+
+
