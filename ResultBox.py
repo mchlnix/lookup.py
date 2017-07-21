@@ -39,7 +39,6 @@ class ResultBox(gtk.VBox):
             return
 
         if use_cache and self.last_query and string.find(self.last_query) == 0:
-            print("Using " + str(len(self.last_slice)) + " entries")
             content = self.last_slice
         else:
             content = self.content
