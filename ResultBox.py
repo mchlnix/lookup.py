@@ -12,10 +12,13 @@ class ResultBox(gtk.VBox):
 
     def load_content(self):
         self.content = []
-        with open(self.file_path, "r") as f:
-            for line in f.readlines():
-                if line.strip():
-                    self.content.append(line.strip())
+        try:
+            with open(self.file_path, "r+") as f:
+                for line in f.readlines():
+                    if line.strip():
+                        self.content.append(line.strip())
+        except IOError as e:
+            print e
 
     def add_entry(self, entry):
         if not entry in self.content:
