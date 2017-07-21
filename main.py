@@ -94,6 +94,17 @@ def ctrl_enter(widget, event):
 
 query_box.connect("key-press-event", ctrl_enter)
 
+def esc_listener(widget, event):
+    if gtk.gdk.keyval_name(event.keyval) == "Escape":
+        if event.state & gtk.gdk.CONTROL_MASK:
+            print "Close Application"
+        else:
+            print "Hide Application"
+    else:
+        print gtk.gdk.keyval_name(event.keyval)
+
+wind.connect("key-press-event", esc_listener)
+
 def callback():
     if wind.get_visible():
         wind.hide()
