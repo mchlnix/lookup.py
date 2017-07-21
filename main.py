@@ -24,7 +24,8 @@ class ResultBox(gtk.VBox):
                     self.content.append(line.strip())
 
     def add_entry(self, entry):
-        self.content.append(entry)
+        if not entry in self.content:
+            self.content.append(entry)
 
     def save_content(self):
         with open(file_path, "w") as f:
