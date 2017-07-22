@@ -49,10 +49,12 @@ class FileContentProvider(IContentProvider):
     def sync(self):
         self.open()
 
-    def close(self):
+    def save(self):
         with open(self.file_path, "w") as f:
             f.write("\n".join(self.content))
 
+    def close(self):
+        self.save()
 
     def get_all(self, query=""):
         if query:
