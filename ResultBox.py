@@ -13,6 +13,9 @@ class IContentProvider:
     def sync(self):
         raise NotImplementedError
 
+    def save(self):
+        raise NotImplementedError
+
     def remove(self, item):
         raise NotImplementedError
 
