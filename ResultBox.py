@@ -66,7 +66,10 @@ class FileContentProvider(IContentProvider):
         index = item.lower().find(query.lower())
         end = index+len(query)
 
-        return item[0:index] + "<b>" + item[index:end] + "</b>" + item[end:]
+        if index >=0:
+            return item[0:index] + "<b>" + item[index:end] + "</b>" + item[end:]
+        else:
+            return item
 
 
 class ResultBox(gtk.VBox):
