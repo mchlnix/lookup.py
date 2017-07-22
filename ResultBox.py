@@ -75,9 +75,6 @@ class FileContentProvider(IContentProvider):
 class ResultBox(gtk.VBox):
     def __init__(self, file_path):
         super(self.__class__, self).__init__()
-        self.last_query = ""
-        self.last_slice = []
-
 	self.file_path = file_path
 
         self.content = FileContentProvider(file_path)
@@ -90,22 +87,15 @@ class ResultBox(gtk.VBox):
     def save_content(self):
         self.content.save()
 
-    def refresh(self):
-        self.update(self.last_query, use_cache=False)
-
-    def update(self, string, use_cache=True):
+    def update(self, string):
         self.destroy_children()
 
         if not string:
-            self.last_query = ""
             return
 
         lst = self.content.get_all(string)
 
         for item in lst:
-            index = item.lower().find(string.lower())
-            end = index+len(string)
-
             label = gtk.Label()
             label.set_justify(gtk.JUSTIFY_LEFT)
             label.set_use_markup(True)
@@ -117,8 +107,6 @@ class ResultBox(gtk.VBox):
             lalign.add(label)
 
             self.add(lalign)
-
-        self.last_slice = lst
 
     def destroy_children(self):
         for child in self.get_children():
