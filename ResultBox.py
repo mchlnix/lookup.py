@@ -43,8 +43,8 @@ class FileContentProvider(IContentProvider):
             print e
 
     def add(self, item):
-        if not entry in self.content:
-            self.content.append(entry)
+        if not item in self.content:
+            self.content.append(item)
 
     def sync(self):
         self.open()
