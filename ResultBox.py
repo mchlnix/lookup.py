@@ -80,25 +80,15 @@ class ResultBox(gtk.VBox):
 
 	self.file_path = file_path
 
-        self.load_content()
+        self.content = FileContentProvider(file_path)
 
-    def load_content(self):
-        self.content = []
-        try:
-            with open(self.file_path, "r+") as f:
-                for line in f.readlines():
-                    if line.strip():
-                        self.content.append(line.strip())
-        except IOError as e:
-            print e
+        self.content.open()
 
     def add_entry(self, entry):
-        if not entry in self.content:
-            self.content.append(entry)
+        self.content.add(entry)
 
     def save_content(self):
-        with open(self.file_path, "w") as f:
-            f.write("\n".join(self.content))
+        self.content.save()
 
     def refresh(self):
         self.update(self.last_query, use_cache=False)
@@ -110,14 +100,7 @@ class ResultBox(gtk.VBox):
             self.last_query = ""
             return
 
-        if use_cache and self.last_query and string.find(self.last_query) == 0:
-            content = self.last_slice
-        else:
-            content = self.content
-
-        self.last_query = string
-
-        lst = [ item for item in content if item.lower().find(string.lower()) >= 0 ]
+        lst = self.content.get_all(string)
 
         for item in lst:
             index = item.lower().find(string.lower())
@@ -126,7 +109,7 @@ class ResultBox(gtk.VBox):
             label = gtk.Label()
             label.set_justify(gtk.JUSTIFY_LEFT)
             label.set_use_markup(True)
-            label.set_markup(item[0:index] + "<b>" + item[index:end] + "</b>" + item[end:])
+            label.set_markup(self.content.highlight(item, string))
 
             lalign = gtk.Alignment(0,0,0,0)
             lalign.set_padding(0,0,5,5)
