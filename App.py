@@ -68,8 +68,8 @@ class App:
         if gtk.gdk.keyval_name(event.keyval) == "Return":
             if event.state & gtk.gdk.CONTROL_MASK:
                 self.entries.add_entry(widget.get_text())
-                self.entries.refresh()
-                self.redraw()
+
+                self.query_input_listener(widget)
 
     def escape_listener(self, widget, event):
         if gtk.gdk.keyval_name(event.keyval) == "Escape":
