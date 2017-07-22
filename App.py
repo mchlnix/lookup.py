@@ -4,7 +4,7 @@ import errno
 import os
 from ResultBox import ResultBox
 
-keystr = "<Ctrl>I"
+DEFAULT_WIDTH = 400
 
 KEY_STRING = "<Ctrl>I"
 
@@ -29,6 +29,7 @@ class App:
     def setup(self):
         self.wind = gtk.Window()
         self.wind.set_decorated(False)
+        self.wind.set_default_size(DEFAULT_WIDTH, -1)
         self.wind.connect("key-press-event", self.escape_listener)
 
         vbox = gtk.VBox()
@@ -86,6 +87,6 @@ class App:
         self.redraw()
 
     def redraw(self):
-        self.wind.resize(1,1)
+        self.wind.resize(DEFAULT_WIDTH,1)
 
         self.wind.show_all()
