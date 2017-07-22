@@ -1,13 +1,10 @@
 import gtk
 
-from FileContentProvider import FileContentProvider
-
 class ResultBox(gtk.VBox):
-    def __init__(self, file_path):
+    def __init__(self, content_provider):
         super(self.__class__, self).__init__()
-	self.file_path = file_path
 
-        self.content = FileContentProvider(file_path)
+        self.content = content_provider
 
         self.content.open()
 

@@ -3,6 +3,7 @@ import keybinder
 import errno
 import os
 from ResultBox import ResultBox
+from FileContentProvider import FileContentProvider
 
 DEFAULT_WIDTH = 400
 
@@ -42,7 +43,7 @@ class App:
         self.query_box.connect("key-press-event", self.ctrl_enter_listener)
         self.query_box.connect("changed", self.query_input_listener)
 
-        self.entries = ResultBox(FILE_PATH)
+        self.entries = ResultBox(FileContentProvider(FILE_PATH))
         vbox.add(self.entries)
 
         keybinder.bind(KEY_STRING, self.keybinder_callback)
