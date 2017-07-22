@@ -6,20 +6,22 @@ from ResultBox import ResultBox
 
 keystr = "<Ctrl>I"
 
-data_folder = os.path.expanduser("~/.config/lookup.py/")
-file_path = data_folder + "/data.txt"
+KEY_STRING = "<Ctrl>I"
+
+DATA_DIR = os.path.expanduser("~/.config/lookup.py/")
+FILE_PATH = DATA_DIR + "/data.txt"
 
 class App:
     def __init__(self):
         # create folder to save data in
         # https://stackoverflow.com/a/600612/4252230
         try:
-            os.makedirs(data_folder)
+            os.makedirs(DATA_DIR)
         except OSError as exc:  # Python >2.5
-            if exc.errno == errno.EEXIST and os.path.isdir(data_folder):
+            if exc.errno == errno.EEXIST and os.path.isdir(DATA_DIR):
                 pass
             else:
-                print("There was a problem while creating the data directory " + data_folder)
+                print("There was a problem while creating the data directory " + DATA_DIR)
                 raise
 
         self.setup()
@@ -39,10 +41,10 @@ class App:
         self.query_box.connect("key-press-event", self.ctrl_enter_listener)
         self.query_box.connect("changed", self.query_input_listener)
 
-        self.entries = ResultBox(file_path)
+        self.entries = ResultBox(FILE_PATH)
         vbox.add(self.entries)
 
-        keybinder.bind(keystr, self.keybinder_callback)
+        keybinder.bind(KEY_STRING, self.keybinder_callback)
 
         self.wind.show_all()
 
