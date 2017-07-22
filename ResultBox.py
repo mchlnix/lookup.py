@@ -53,10 +53,14 @@ class FileContentProvider(IContentProvider):
         with open(self.file_path, "w") as f:
             f.write("\n".join(self.content))
 
-    def get_all(self, query):
-        return [ item for item in self.content if item.lower().find(query.lower()) >= 0 ]
 
-    def hightlight(self, item, query):
+    def get_all(self, query=""):
+        if query:
+            return [ item for item in self.content if item.lower().find(query.lower()) >= 0 ]
+        else:
+            return self.content
+
+    def highlight(self, item, query):
         index = item.lower().find(query.lower())
         end = index+len(query)
 
