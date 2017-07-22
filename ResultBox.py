@@ -10,7 +10,7 @@ class IContentProvider:
     def add(self, item):
         raise NotImplementedError
 
-    def reload(self):
+    def sync(self):
         raise NotImplementedError
 
     def remove(self, item):
@@ -43,7 +43,7 @@ class FileContentProvider(IContentProvider):
         if not entry in self.content:
             self.content.append(entry)
 
-    def reload(self):
+    def sync(self):
         self.open()
 
     def close(self):
